@@ -13,6 +13,7 @@
 		021763511FC236A6002FDC02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 021763501FC236A6002FDC02 /* Assets.xcassets */; };
 		021763541FC236A6002FDC02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 021763521FC236A6002FDC02 /* LaunchScreen.storyboard */; };
 		0217635C1FC2404E002FDC02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0217635B1FC2404E002FDC02 /* GoogleService-Info.plist */; };
+		026B70CF1FC32EE5009F9114 /* UNService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026B70CE1FC32EE5009F9114 /* UNService.swift */; };
 		D64DEBDDE10A4DFFA3042070 /* Pods_NotificationTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A9BD5C1E61F92342EED9FB /* Pods_NotificationTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		021763551FC236A6002FDC02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0217635B1FC2404E002FDC02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0217635D1FC240B9002FDC02 /* NotificationTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationTest.entitlements; sourceTree = "<group>"; };
+		026B70CE1FC32EE5009F9114 /* UNService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNService.swift; sourceTree = "<group>"; };
 		479624E883360705D1A43899 /* Pods-NotificationTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationTest/Pods-NotificationTest.debug.xcconfig"; sourceTree = "<group>"; };
 		85A9BD5C1E61F92342EED9FB /* Pods_NotificationTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -72,6 +74,7 @@
 				021763501FC236A6002FDC02 /* Assets.xcassets */,
 				021763521FC236A6002FDC02 /* LaunchScreen.storyboard */,
 				021763551FC236A6002FDC02 /* Info.plist */,
+				026B70CE1FC32EE5009F9114 /* UNService.swift */,
 			);
 			path = NotificationTest;
 			sourceTree = "<group>";
@@ -191,9 +194,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NotificationTest/Pods-NotificationTest-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -206,13 +216,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NotificationTest-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -222,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				026B70CF1FC32EE5009F9114 /* UNService.swift in Sources */,
 				0217634C1FC236A6002FDC02 /* ViewController.swift in Sources */,
 				0217634A1FC236A6002FDC02 /* AppDelegate.swift in Sources */,
 			);
@@ -370,8 +384,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tvornica-snova.noitf.test.NotificationTest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3cdadafb-c7b8-496c-9e06-d967e1b18099";
-				PROVISIONING_PROFILE_SPECIFIER = "NotificationsTest-Development-Profile";
+				PROVISIONING_PROFILE = "ca682cbb-656d-4f9e-bccb-49f748d93433";
+				PROVISIONING_PROFILE_SPECIFIER = "NotifTest-Development-Profile";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -391,8 +405,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tvornica-snova.noitf.test.NotificationTest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3cdadafb-c7b8-496c-9e06-d967e1b18099";
-				PROVISIONING_PROFILE_SPECIFIER = "NotificationsTest-Development-Profile";
+				PROVISIONING_PROFILE = "ca682cbb-656d-4f9e-bccb-49f748d93433";
+				PROVISIONING_PROFILE_SPECIFIER = "NotifTest-Development-Profile";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

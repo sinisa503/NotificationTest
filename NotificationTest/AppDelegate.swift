@@ -13,33 +13,60 @@ import FirebaseInstanceID
 import FirebaseMessaging
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
    var window: UIWindow?
 
 
    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-      
-      // For iOS 10 display notification (sent via APNS)
-      UNUserNotificationCenter.current().delegate = self
-      let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-      UNUserNotificationCenter.current().requestAuthorization(
-         options: authOptions,
-         completionHandler: {_, _ in })
-      // For iOS 10 data message (sent via FCM
-      Messaging.messaging().delegate = self
-      
-//      if #available(iOS 11.0, *){
 //
-//      } else {
-//         let settings: UIUserNotificationSettings =
+//      // For iOS 10 display notification (sent via APNS)
+//      UNUserNotificationCenter.current().delegate = self
+//      let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//      UNUserNotificationCenter.current().requestAuthorization(
+//         options: authOptions,
+//         completionHandler: {_, _ in })
+//      // For iOS 10 data message (sent via FCM
+//      Messaging.messaging().delegate = self
+//
+////      if #available(iOS 11.0, *){
+////
+////      } else {
+////         let settings: UIUserNotificationSettings =
+////            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+////         application.registerUserNotificationSettings(settings)
+////      }
+//
+//      application.registerForRemoteNotifications()
+//
+    
+    
+    
+//      FirebaseApp.configure()
+//
+//
+//    if #available(iOS 10.0, *) {
+//        // For iOS 10 display notification (sent via APNS)
+//        UNUserNotificationCenter.current().delegate = self
+//
+//        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//        UNUserNotificationCenter.current().requestAuthorization(
+//            options: authOptions,
+//            completionHandler: {_, _ in })
+//    } else {
+//        let settings: UIUserNotificationSettings =
 //            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//         application.registerUserNotificationSettings(settings)
-//      }
-      
-      application.registerForRemoteNotifications()
-      
-      FirebaseApp.configure()
+//        application.registerUserNotificationSettings(settings)
+//    }
+//
+//    application.registerForRemoteNotifications()
+//
+//
+//    Messaging.messaging().delegate = self
+
+    
+    UNService.shared.authorize()
+    FirebaseApp.configure()
       return true
    }
    
@@ -69,5 +96,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
       print(remoteMessage.appData)
    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        let token = Messaging.messaging().fcmToken
+        print("FCM token: \(token ?? "")")
+    }
 }
 
